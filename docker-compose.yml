@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  mongo:
+    image: mongo:3.2
+    restart: unless-stopped
+    volumes:
+     - ./dump.rdb:/dump/dump.rdb
+    command: mongod --smallfiles --oplogSize 128 --replSet rs0 --storageEngine=mmapv1
+
+  dashboard:
+    depends_on: 
+      - mongo
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    entrypoint: npm start
+    volumes: 
+      - ./:/home/node/app

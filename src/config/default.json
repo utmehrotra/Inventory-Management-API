@@ -1,0 +1,19 @@
+{
+    "env":{
+        "logLevel": "silly",
+        "port": 6000,
+        "mongoDb": { 
+            "host": "localhost", 
+            "user": "",
+            "pass": "",
+            "port": 27017,
+            "database": "inventory" ,
+            "srv": false
+        },
+        "jwt":{
+            "expiry": "1d",
+            "password": "ksdjhfkjshdfkshl"
+        }
+    }
+}
+

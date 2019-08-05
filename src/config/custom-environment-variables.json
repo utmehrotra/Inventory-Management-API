@@ -1,0 +1,19 @@
+{
+    "envSet": "ENV_VARS",
+    "env":{
+        "debug": "DEBUG",
+        "port": "APP_PORT",
+        "mongoDb": { 
+            "host": "MONGO_HOST", 
+            "user": "MONGO_USER",
+            "pass": "MONGO_PASS",
+            "port": "MONGO_PORT",
+            "database": "MONGO_DB" ,
+            "srv": "MONGO_SRV"
+        },
+        "jwt":{
+            "expiry": "TOKEN_EXPIRES_IN",
+            "password": "JWT_PASSWORD"
+        }
+    }
+}
