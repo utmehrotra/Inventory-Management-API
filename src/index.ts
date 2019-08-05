@@ -3,14 +3,24 @@ import 'source-map-support/register'
 import restify from 'restify';
 import applicationConfig from './config/config';
 import { MongoConnector } from './modules/mongo-connector';
+import { LoggerContainer } from './modules/logger/logger-container';
+import { attachApplicationRoutes } from './routes';
+import { initTokenManager } from './modules/auth/token-manager';
 
-
+const logger = LoggerContainer.instance
+  .setDefaultLevel(applicationConfig.logLevel)
+  .createLogger('Application');
 const mongoConnector = new MongoConnector();
 const app = restify.createServer({
   name: 'Inventory Management API',
   version: '0.0.1'
 });
+logger.info(`Application configuration: `, applicationConfig);
 
+initTokenManager({
+    tokenExpiresIn: applicationConfig.jwt.expiry,
+    password: applicationConfig.jwt.password
+});
 
 app.use(restify.plugins.acceptParser(app.acceptable));
 app.use(restify.plugins.gzipResponse());
@@ -35,21 +45,21 @@ app.get(
 );
 
 mongoConnector.setConfig(applicationConfig.mongoDb);
-
+attachApplicationRoutes(app);
 
 (async () => {
   await mongoConnector.connect();
   app.listen(applicationConfig.port, () => {
-    console.log(`Application started on ${applicationConfig.port}`);
+    logger.info(`Application started on http://localhost:${applicationConfig.port}`);
   });
 })();
 
 app.on('uncaughtException', (req, res, route, err) => {
-  
+    logger.warn('Uncaught process exception: ', err);
   process.exit(1);
 });
 
 process.on('unhandledRejection', (reason) => {
-  
+    logger.error('Unhandled promise rejection:', reason);
   process.exit(1);
 });
