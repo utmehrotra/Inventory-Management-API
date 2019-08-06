@@ -23,7 +23,7 @@ export default class ProductController {
             if(price === 0){
                 warning.push(AppConstant.PRODUCT.WARNING.FREE)
             }
-            const logResp = await productLogService.create({pid: response._id, status: true, uid: req.userId, quantity});
+            await productLogService.create({pid: response._id, status: true, uid: req.userId, quantity});
             return formatAndSendResponse(null, response, {res, warning});
         }else{
             return formatAndSendResponse(err, null, {res});
@@ -55,7 +55,7 @@ export default class ProductController {
         const productLogService = ProductLogService.instance;
         const updatedResp = await productService.updateProductQuantity({pid:  id, inc});
         if(updatedResp){
-            const logResp = await productLogService.create({pid: id, quantity: inc, uid: adminId});
+            await productLogService.create({pid: id, quantity: inc, uid: adminId});
             return formatAndSendResponse(null, updatedResp, {
                 res, message: 'The product quantity has been changed'
             });
@@ -80,7 +80,7 @@ export default class ProductController {
         const productLogService = ProductLogService.instance;
         const deletedResp = await productService.delete({id});
         if(deletedResp){
-            const logResp = await productLogService.create({pid: id, status: false, uid: adminId});
+            await productLogService.create({pid: id, status: false, uid: adminId});
             return formatAndSendResponse(null, deletedResp, {
                 res, message: 'The product is now deleted'
             });
