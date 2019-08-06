@@ -3,6 +3,8 @@ import { HttpStatus } from '../modules/http-status'
 interface Response  {
     response: any;
     message?: string;
+    warning?: any,
+    meta?: any
 };
 
 interface ErrorResponse  {
@@ -12,10 +14,16 @@ interface ErrorResponse  {
 
 export default (err, response, extra) => {
   let result: Response = {response};
-  const {message = '', req, res} = extra;
+  const {message = '', req, res, warning, meta} = extra;
   let {headerStatus} = extra;
   if (message !== '') {
     result = {...result, message};
+  }
+  if(warning){
+    result = {...result, warning};
+  }
+  if(meta){
+    result = {...result, meta};
   }
   if (!err && !(headerStatus >= 400)) {
     res.send(HttpStatus.OK, result);
