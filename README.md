@@ -24,6 +24,7 @@ This project needs this enviroment variables:
 ## Installation Steps
 Go to your project
 ```bash
+npm install
 npm run build
 docker build
 docker-compose up
