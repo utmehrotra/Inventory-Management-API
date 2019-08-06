@@ -5,7 +5,7 @@ export const AppConstant = {
     USER:{
         DEFAULT:{
             PROJECTION: {
-                'name':1, 'email':1, 'createdAt':1
+                'name':1, 'email':1, 'createdAt':1, 'password':1
             }
         }
     },
@@ -25,14 +25,17 @@ export const AppConstant = {
             EMAIL: 'Email missing or not valid',
             PASSWORD: 'Password should be atleast 4 characters',
             NAME: 'Name missing',
+            QUANTITY: 'You need to send the quantity to increase or decrease the product quantity',
+            PRODUCT: 'Product Id missing'
         },
         USER:{
             ALREADY_EXISTS: 'User already exists. Please sign in',
-            DOESNT_EXISTS: 'User doesn\'t exists. Please sign up'
+            DOESNT_EXISTS: 'User doesn\'t exists. Please sign up',
+            EMAIL_PASSWORD_ERROR: 'Email and password doesn\'t match'
         },
         PRODUCT:{
             MISSING_EMPTY: 'Product doesn\'t exists or is already empty',
-            ALREADY_DELETED: 'Product doesn\`t exists or has already been deleted'
+            ALREADY_DELETED: 'Product doesn\`t exists or has already been deleted',
         }
     }
 };

@@ -5,7 +5,7 @@ const ProductLogSchema = new Schema(
     pid: { type: Schema.Types.ObjectId, ref: 'Product' },
     uid: { type: Schema.Types.ObjectId, ref: 'User' },
     quantity: {type: Number },
-    statusChanged: {type: Boolean },
+    status: {type: Boolean },
   },
   {
     timestamps: true,

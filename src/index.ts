@@ -1,6 +1,7 @@
 process.chdir(__dirname);
 import 'source-map-support/register'
 import restify from 'restify';
+import corsMiddleware from 'restify-cors-middleware';
 import applicationConfig from './config/config';
 import { MongoConnector } from './modules/mongo-connector';
 import { LoggerContainer } from './modules/logger/logger-container';
@@ -16,12 +17,17 @@ const app = restify.createServer({
   version: '0.0.1'
 });
 logger.info(`Application configuration: `, applicationConfig);
+const cors = corsMiddleware({
+  preflightMaxAge: 5,
+  origins: ['*'], // TODO: move to config
+  allowHeaders: ['auth-token', 'x-auth-token', 'content-type', 'jwt', 'x-jwt']
+});
 
 initTokenManager({
     tokenExpiresIn: applicationConfig.jwt.expiry,
     password: applicationConfig.jwt.password
 });
-
+app.pre(cors.preflight);
 app.use(restify.plugins.acceptParser(app.acceptable));
 app.use(restify.plugins.gzipResponse());
 app.pre(restify.plugins.pre.sanitizePath());

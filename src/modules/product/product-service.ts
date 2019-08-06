@@ -47,11 +47,11 @@ export class ProductService {
   }
 
   createQuery(query){
-    let { page = 1, size = AppConstant.DEFAULT.SIZE } = query || {};
+    let { page = 0, size = AppConstant.DEFAULT.SIZE } = query || {};
     const {name = '', quantity = '2'} = query || {};
     page = parseInt(page);
     size = parseInt(size);
-    const from = (page - 1) * size;
+    const from = (page) * size;
     const dbQuery = {
         criteria: {},
         options: { skip: from, limit: size },
