@@ -14,7 +14,7 @@ interface ErrorResponse  {
 
 export default (err, response, extra) => {
   let result: Response = {response};
-  const {message = '', req, res, warning, meta} = extra;
+  const {message = '', res, warning, meta} = extra;
   let {headerStatus} = extra;
   if (message !== '') {
     result = {...result, message};
