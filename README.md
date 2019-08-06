@@ -28,3 +28,9 @@ npm run build
 docker build
 docker-compose up
 ```
+
+## If you wish to run it without docker
+```bash
+npm run build
+npm run debug
+```
