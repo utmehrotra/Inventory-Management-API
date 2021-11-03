@@ -33,7 +33,7 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "restify": "7.3.0",
-    "validator": "^10.10.0",
+    "validator": "^13.7.0",
     "log4js": "4.3.1",
     "restify-cors-middleware": "^1.1.1"
   },
